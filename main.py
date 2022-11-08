@@ -1,4 +1,10 @@
-from information import *
+# from information import *
+
+# initialData = beforeIntercept()
+# ball, robot = initialData[0], initialData[1]  
+
+# interceptData = afterIntercept()
+# data_interception, ballIntercept, robotIntercept = interceptData[0], interceptData[1], interceptData[2]
 
 # print(f"Interception: {data_interception['interception']}")
 # print("Distance Robot and Ball: %.3f(m)" % data_interception["distance"])

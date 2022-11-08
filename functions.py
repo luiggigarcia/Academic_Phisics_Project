@@ -1,4 +1,5 @@
 from math import sqrt, pow
+from re import T
 
 def distance(robotx, roboty, ballx, bally):
     dist = sqrt(pow(robotx - ballx, 2) + pow(roboty - bally, 2))
@@ -32,9 +33,9 @@ def interception(timeList, robotxList, robotyList, ballxList, ballyList, raio):
         [collision, dist, timeIntercept, robotxIntercept, robotyIntercept, 
          ballxIntercept, ballyIntercept],
         [timeListIntercept, robotxListIntercept, robotyListIntercept,
-         ballxListIntercept, ballyListIntercept]]
-    
-    
+         ballxListIntercept, ballyListIntercept]
+         ]
+         
 
 def readFileToList(filename):
     file = open(filename, 'r')

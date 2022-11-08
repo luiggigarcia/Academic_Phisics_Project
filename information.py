@@ -5,7 +5,7 @@ robot_yo = float(input("Digite a coordenada yo do robo: "))
 vo_robot = 0.84 # 30% de da velocidade.
 ace_robot = 2.8
 taxaAceRobot = 0.14 # aceleração média do robo.
-raio = 0.9
+raio = 0.11
 
 
 # Dados fornecidos antes da interceptação
@@ -58,9 +58,16 @@ def afterIntercept():
         "yList": M_intercept[1][4]
     }
 
+    ballIntercept["vxList"] = VelocityXBall(ballIntercept["timeList"])
+    ballIntercept["vyList"] = VelocityYBall(ballIntercept["timeList"])
+    ballIntercept["axList"] = AccelerationXBall(ballIntercept["timeList"])
+    ballIntercept["ayList"] = AccelerationYBall(ballIntercept["timeList"])
+
     robotIntercept = {
         "xList": M_intercept[1][1],
-        "yList": M_intercept[1][2]
+        "yList": M_intercept[1][2],
+        "v": VelocityRobot(ballIntercept["timeList"], vo_robot, taxaAceRobot),
+        "a": AccelerationRobot(ballIntercept["timeList"])
     }
     
     return [data_interception, ballIntercept, robotIntercept]
