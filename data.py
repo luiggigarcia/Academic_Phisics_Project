@@ -5,7 +5,7 @@ from functions import *
 
 # # Dados fornecidos antes da interceptação
 
-def beforeIntercept(robot_xo, robot_yo, vmax):
+def beforeIntercept(robot_xo, robot_yo, a, v):
     ball = {
         "timeList": readFileToList('./ball/ball_time.txt'),
         "xList": readFileToList('./ball/positions_x.txt'),
@@ -18,16 +18,13 @@ def beforeIntercept(robot_xo, robot_yo, vmax):
     ball["ayList"] = Ay_Ball(ball["timeList"])
 
     robot = {
-        "xList": Posx_Robot(ball["timeList"], ball["xList"][0], ball["yList"][0], robot_xo, robot_yo, vmax),
-        "yList": Posy_Robot(ball["timeList"], ball["xList"][0], ball["yList"][0], robot_xo, robot_yo, vmax),
+        "xList": Pos_Robot(ball["timeList"], ball["xList"], robot_xo, a, "x"),
+        "yList": Pos_Robot(ball["timeList"], ball["yList"], robot_yo, a, "y")
     }
     
-    dy = ball["yList"][0] - robot_yo
-    dx = ball["xList"][0] - robot_xo
-    ang = angle(dy, dx)
     
-    robot["vxList"] = Vx_Robot(ball["timeList"], ang, vmax)
-    robot["vyList"] = Vy_Robot(ball["timeList"], ang, vmax)
+    robot["vxList"] = Vx_Robot(ball["timeList"], ball["xList"], ball["yList"], robot["xList"], robot["yList"], v) 
+    robot["vyList"] = Vy_Robot(ball["timeList"], ball["xList"], ball["yList"], robot["xList"], robot["yList"], v)
     
     return [ball, robot]
 
@@ -35,7 +32,7 @@ def beforeIntercept(robot_xo, robot_yo, vmax):
 
 # # Dados fornecidos após a interceptação da bola
 
-def afterIntercept(ball, robot, raio):
+def afterIntercept(ball, robot, raio, v):
     
     M_intercept = interception(ball["timeList"], robot["xList"], robot["yList"], ball["xList"], ball["yList"], raio)
     
@@ -46,18 +43,27 @@ def afterIntercept(ball, robot, raio):
         "robotX": M_intercept[0][3],
         "robotY": M_intercept[0][4],
         "ballX": M_intercept[0][5],
-        "ballY": M_intercept[0][6]
+        "ballY": M_intercept[0][6],
+        "distanceList": distanceList(M_intercept[1][0], M_intercept[1][1], M_intercept[1][2], M_intercept[1][3], M_intercept[1][4])
     }
 
     ballIntercept = {
         "timeList": M_intercept[1][0],
         "xList": M_intercept[1][3],
-        "yList": M_intercept[1][4]
+        "yList": M_intercept[1][4],
+        "vxList": Vx_Ball(ball["timeList"]),
+        "vyList": Vy_Ball(ball["timeList"]),
+        "axList": Ax_Ball(ball["timeList"]),
+        "ayList": Ay_Ball(ball["timeList"])
     }
 
     robotIntercept = {
         "xList": M_intercept[1][1],
-        "yList": M_intercept[1][2]
+        "yList": M_intercept[1][2],
+        "vxList": Vx_Robot(ball["timeList"], ball["xList"], ball["yList"], robot["xList"], robot["yList"], v),
+        "vyList": Vy_Robot(ball["timeList"], ball["xList"], ball["yList"], robot["xList"], robot["yList"], v),
+        "axList": Ax_Robot(ball["timeList"]),
+        "ayList": Ay_Robot(ball["timeList"])
     }
     
     return [data_interception, ballIntercept, robotIntercept]

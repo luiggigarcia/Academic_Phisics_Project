@@ -1,8 +1,17 @@
-from math import sqrt, pow, atan2
+from math import sqrt, pow, atan
 
 def distance(robotx, roboty, ballx, bally):
-    dist = sqrt(pow(robotx - ballx, 2) + pow(roboty - bally, 2))
+    dist = sqrt(pow(ballx - robotx, 2) + pow(bally - roboty, 2))
     return dist
+
+def distanceList(timeList, Rx, Ry, Bx, By):
+    distances = []
+    for t in range(len(timeList)):
+        aux1 = (Bx[t] - Rx[t])**2
+        aux2 = (By[t] - Ry[t])**2
+        d = sqrt(aux1 + aux2)
+        distances.append(round(d, 3))
+    return distances
 
 def interception(timeList, robotxList, robotyList, ballxList, ballyList, raio):
     dist, timeIntercept, collision = 0, 0, False
@@ -18,6 +27,7 @@ def interception(timeList, robotxList, robotyList, ballxList, ballyList, raio):
         robotyListIntercept.append(robotyList[t])
         ballxListIntercept.append(ballxList[t])
         ballyListIntercept.append(ballyList[t])
+        # print("Distance: %.2f < 0.11" % dist)
         
         if dist < raio:
             collision = True
@@ -45,6 +55,17 @@ def readFileToList(filename):
         
     return dataList
 
-def angle(dy, dx):
-    ang = atan2(dy, dx)
+
+def angle(Bx, By, Rx, Ry):
+    if By - Ry == 0:
+        return 0
+    aux = (Bx - Rx) / (By - Ry)
+    aux = aux**2
+    mod_tangent = sqrt(aux)
+    ang = atan(mod_tangent)
     return ang
+
+def TrajectoryTime(dist, v):
+    t = dist/v
+    print("Tempo da trajetória: %.2f" % t)
+    return t

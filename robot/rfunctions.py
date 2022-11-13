@@ -3,73 +3,63 @@ sys.path.insert(0, "../")
 from functions import angle
 from math import sin, cos
 
-def Vx_Robot(timeList, angle, vmax):
+def vel(vo, a, t):
+    v = vo + (a*t)
+    return v
+
+def Pos_Robot(timeList, ballList, xo, a, pos):
+    file = open("./robot/positions_%s.txt" % pos, 'w')
+    coordinates = [xo]
+    x = xo
+    file.write("%.3f\n" % x)
+    
+    for t in range(len(timeList)):
+        v = vel(0, a, timeList[t])
+        if (x < ballList[t]):
+            x += (v*0.02)
+        else:
+            x -= (v*0.02)
+            
+        if t == len(timeList) - 1:
+            file.write("%.3f" % x)
+            break
+        file.write("%.3f\n" % x)
+            
+        coordinates.append(x)
+    
+    file.close()
+    return coordinates
+
+def Ax_Robot(timeList):
+    ax = []
+    
+    for t in timeList:
+        ax.append(2.4)
+        
+    return ax
+
+def Ay_Robot(timeList):
+    ay = []
+    
+    for t in timeList:
+        ay.append(2.4)
+        
+    return ay
+
+def Vx_Robot(timeList, Bx, By, Rx, Ry, v):
     vx = []
-    
     for t in range(len(timeList)):
-        v = cos(angle) * vmax
-        vx.append(v)
-    
+        ang = angle(Bx[t], By[t], Rx[t], Ry[t])
+        vel = cos(ang) * v
+        # print("%.2f m/s" % vel)
+        vx.append(round(vel, 3))
     return vx
+        
 
-def Vy_Robot(timeList, angle, vmax):
+def Vy_Robot(timeList, Bx, By, Rx, Ry, v):
     vy = []
-    
     for t in range(len(timeList)):
-        v = sin(angle) * vmax
-        vy.append(v)
-        
+        ang = angle(Bx[t], By[t], Rx[t], Ry[t])
+        vel = sin(ang) * v
+        vy.append(round(vel, 3))
     return vy
-
-
-def Posx_Robot(timeList, Bxo, Byo, Rxo, Ryo, vmax):
-    file = open("./robot/positions_x.txt", 'w')
-    dy = Byo - Ryo
-    dx = Bxo - Rxo
-    ang = angle(dy, dx)
-    vx = Vx_Robot(timeList, ang, vmax)
-    Rx = Rxo
-    
-    coordinates_x = []
-    
-    for t in range(len(timeList)):
-        Rx += vx[t]
-        coordinates_x.append(Rx)
-        
-        if t == len(timeList) - 1:
-            file.write("%.3f" % Rx)
-            break
-        file.write("%.3f\n" % Rx)
-        
-    file.close()
-    
-    return coordinates_x
-
-def Posy_Robot(timeList, Bxo, Byo, Rxo, Ryo, vmax):
-    file = open("./robot/positions_y.txt", 'w')
-    dy = Byo - Ryo
-    dx = Bxo - Rxo
-    ang = angle(dy, dx)
-    vy = Vy_Robot(timeList, ang, vmax)
-    Ry = Ryo
-    
-    coordinates_y = []
-    
-    for t in range(len(timeList)):
-        Ry += vy[t]
-        coordinates_y.append(Ry)
-        
-        if t == len(timeList) - 1:
-            file.write("%.3f" % Ry)
-            break
-        file.write("%.3f\n" % Ry)
-        
-    file.close()
-    
-    return coordinates_y
-
-def Ax_Robot():
-    return 0
-
-def Ay_Robot():
-    return 0
