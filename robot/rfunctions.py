@@ -5,6 +5,9 @@ from math import sin, cos
 
 def vel(vo, a, t):
     v = vo + (a*t)
+    # print("%.2f m/s" % (v))
+    if v >= 2.4:
+        v = 2.4
     return v
 
 def Pos_Robot(timeList, ballList, xo, a, pos):
@@ -14,6 +17,7 @@ def Pos_Robot(timeList, ballList, xo, a, pos):
     file.write("%.3f\n" % x)
     
     for t in range(len(timeList)):
+        # print("%.2fs" % timeList[t])
         v = vel(0, a, timeList[t])
         if (x < ballList[t]):
             x += (v*0.02)
@@ -22,19 +26,26 @@ def Pos_Robot(timeList, ballList, xo, a, pos):
             
         if t == len(timeList) - 1:
             file.write("%.3f" % x)
-            break
-        file.write("%.3f\n" % x)
+        else:
+            file.write("%.3f\n" % x)
             
         coordinates.append(x)
     
     file.close()
     return coordinates
 
+def distanceTraveled(timeList, a):
+    dist = 0
+    for t in range(len(timeList)):
+        v = vel(0, a, timeList[t])
+        dist += (v*0.02)
+    return dist
+
 def Ax_Robot(timeList):
     ax = []
     
     for t in timeList:
-        ax.append(2.4)
+        ax.append(0.4)
         
     return ax
 
@@ -42,7 +53,7 @@ def Ay_Robot(timeList):
     ay = []
     
     for t in timeList:
-        ay.append(2.4)
+        ay.append(0.4)
         
     return ay
 

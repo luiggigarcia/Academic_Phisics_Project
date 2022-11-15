@@ -22,12 +22,12 @@ def interception(timeList, robotxList, robotyList, ballxList, ballyList, raio):
     
     for t in range(len(timeList)):
         dist = distance(robotxList[t], robotyList[t], ballxList[t], ballyList[t])
+        # print("Distance: %.3f" % dist)
         timeListIntercept.append(timeList[t])
         robotxListIntercept.append(robotxList[t])
         robotyListIntercept.append(robotyList[t])
         ballxListIntercept.append(ballxList[t])
         ballyListIntercept.append(ballyList[t])
-        # print("Distance: %.2f < 0.11" % dist)
         
         if dist < raio:
             collision = True
@@ -38,11 +38,8 @@ def interception(timeList, robotxList, robotyList, ballxList, ballyList, raio):
             ballyIntercept = ballyList[t]
             break
         
-    return [
-        [collision, dist, timeIntercept, robotxIntercept, robotyIntercept, 
-         ballxIntercept, ballyIntercept],
-        [timeListIntercept, robotxListIntercept, robotyListIntercept,
-         ballxListIntercept, ballyListIntercept]]
+    return [[collision, dist, timeIntercept, robotxIntercept, robotyIntercept, ballxIntercept, ballyIntercept],
+             [timeListIntercept, robotxListIntercept, robotyListIntercept, ballxListIntercept, ballyListIntercept]]
     
 def readFileToList(filename):
     file = open(filename, 'r')
@@ -65,7 +62,14 @@ def angle(Bx, By, Rx, Ry):
     ang = atan(mod_tangent)
     return ang
 
-def TrajectoryTime(dist, v):
-    t = dist/v
-    print("Tempo da trajetória: %.2f" % t)
-    return t
+def dislocation(xf, xi):
+    x = xf - xi
+    return x
+
+def Vm(xf, xi, tf, ti):
+    v = (xf - xi) / (tf - ti)
+    return v
+
+def Am(vf, vi, tf, ti):
+    a = (vf - vi) / (tf - ti)
+    return a

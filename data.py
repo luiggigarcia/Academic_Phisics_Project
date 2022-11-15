@@ -66,4 +66,8 @@ def afterIntercept(ball, robot, raio, v):
         "ayList": Ay_Robot(ball["timeList"])
     }
     
+    data_interception["robotDislocation"] = dislocation(robotIntercept["xList"][-1], robotIntercept["xList"][0])
+    data_interception["robotVm"] = Vm(robotIntercept["xList"][-1], robotIntercept["xList"][0], ballIntercept["timeList"][-1], ballIntercept["timeList"][0])
+    data_interception["robotAm"] = Am(robotIntercept["vxList"][-1], robotIntercept["vxList"][0], ballIntercept["timeList"][-1], ballIntercept["timeList"][0])
+    data_interception["distTraveled"] = distanceTraveled(ballIntercept["timeList"], 0.4)
     return [data_interception, ballIntercept, robotIntercept]
