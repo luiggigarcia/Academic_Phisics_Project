@@ -21,8 +21,10 @@ def Pos_Robot(timeList, ballList, xo, a, pos):
         v = vel(0, a, timeList[t])
         if (x < ballList[t]):
             x += (v*0.02)
+            # print("%.2f / %.2f" % (x, ballList[t]))
         else:
             x -= (v*0.02)
+            # print("%.2f / %.2f" % (x, ballList[t]))
             
         if t == len(timeList) - 1:
             file.write("%.3f" % x)

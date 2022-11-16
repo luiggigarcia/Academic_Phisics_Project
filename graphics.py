@@ -16,10 +16,10 @@ def trajetoria():
   xList_robot = [xr[0], xr[-1]]
   yr = robot["yList"]
   yList_robot = [yr[0], yr[-1]]
-  plt.plot(xList_ball,yList_ball, label= "Bola")
+  plt.plot(xList_ball, yList_ball, label= "Bola")
   plt.plot(xList_robot,yList_robot, label= "Robô")
   plt.legend()
-  plt.title("Trajetória robô e bola")
+  plt.title("Trajetória da Bola e do Robô em xy")
   plt.xlabel("Posição x(m)")
   plt.ylabel("Posição y(m)")
   plt.show()
@@ -72,7 +72,7 @@ def x_velocidade():
   plt.plot(t,vx_ball, label= "Bola")
   plt.plot(t,vx_robot, label= "Robô")
   plt.legend()
-  plt.title("Velocidade x da bola e do robô em função do tempo")
+  plt.title("Velocidade em x da bola e do robô em função do tempo")
   plt.xlabel("Tempo(s)")
   plt.ylabel("Velocidade x(m/s)")
   plt.show()
@@ -104,7 +104,7 @@ def x_aceleracao():
   plt.plot(t,ax_ball, label= "Bola")
   plt.plot(t,ax_robot, label= "Robô")
   plt.legend()
-  plt.title("Aceleração x da bola e do robô em função do tempo")
+  plt.title("Aceleração em x da bola e do robô em função do tempo")
   plt.xlabel("Tempo(s)")
   plt.ylabel("Aceleração x(m/s²)")
   plt.show()
@@ -119,7 +119,7 @@ def y_aceleracao():
   plt.plot(t,ay_ball, label= "Bola")
   plt.plot(t,ay_robot, label= "Robô")
   plt.legend()
-  plt.title("Aceleração y da bola e do robô em função do tempo")
+  plt.title("Aceleração em y da bola e do robô em função do tempo")
   plt.xlabel("Tempo(s)")
   plt.ylabel("Aceleração y(m/s²)")
   plt.show()
@@ -129,14 +129,23 @@ y_aceleracao()
 # ========================
 
 # GRÁFICO 5
-def distancia_relativa():  
-  d = data["distanceList"]
-  distance = [d[0], d[-1]]
-  plt.plot(t,distance, label= "Distância")
+def distanciaRelativa():  
+  xb = ball["xList"]
+  xList_ball = [xb[0], xb[-1]]
+  yb = ball["yList"]
+  yList_ball = [yb[0], yb[-1]]
+  xr = robot["xList"]
+  xList_robot = [xr[0], xr[-1]]
+  yr = robot["yList"]
+  yList_robot = [yr[0], yr[-1]]
+  plt.plot(xList_ball,yList_ball, label= "Bola")
+  plt.plot(xList_robot,yList_robot, label= "Robô")
   plt.legend()
   plt.title("Distância relativa entre robô e bola")
-  plt.xlabel("Tempo(s)")
-  plt.ylabel("Distância Relativa")
+  plt.xlabel("Posição x(m)")
+  plt.ylabel("Posição y(m)")
   plt.show()
+
+distanciaRelativa()
 
 # distancia_relativa()

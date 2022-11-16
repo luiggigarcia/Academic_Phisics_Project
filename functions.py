@@ -1,7 +1,7 @@
 from math import sqrt, pow, atan
 
 def distance(robotx, roboty, ballx, bally):
-    dist = sqrt(pow(ballx - robotx, 2) + pow(bally - roboty, 2))
+    dist = sqrt(pow(robotx - ballx , 2) + pow(roboty - bally, 2))
     return dist
 
 def distanceList(timeList, Rx, Ry, Bx, By):
@@ -65,6 +65,11 @@ def angle(Bx, By, Rx, Ry):
 def dislocation(xf, xi):
     x = xf - xi
     return x
+
+def dislocationXY(x, y):
+    ds = (x**2) + (y**2)
+    d = sqrt(ds)
+    return d
 
 def Vm(xf, xi, tf, ti):
     v = (xf - xi) / (tf - ti)
