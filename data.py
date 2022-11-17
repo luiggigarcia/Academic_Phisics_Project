@@ -35,6 +35,8 @@ def beforeIntercept(robot_xo, robot_yo, a, v):
 def afterIntercept(ball, robot, raio, v):
     
     M_intercept = interception(ball["timeList"], robot["xList"], robot["yList"], ball["xList"], ball["yList"], raio)
+    M_interceptRaio1 = interception(ball["timeList"], robot["xList"], robot["yList"], ball["xList"], ball["yList"], 0.9)
+    M_interceptRaio2 = interception(ball["timeList"], robot["xList"], robot["yList"], ball["xList"], ball["yList"], 0.7)
     
     data_interception = {
         "interception": M_intercept[0][0],
@@ -45,6 +47,22 @@ def afterIntercept(ball, robot, raio, v):
         "ballX": M_intercept[0][5],
         "ballY": M_intercept[0][6],
         "distanceList": distanceList(M_intercept[1][0], M_intercept[1][1], M_intercept[1][2], M_intercept[1][3], M_intercept[1][4])
+    }
+
+    data_interception2 = {
+        "timeList": M_interceptRaio1[1][0],
+        "ballxList": M_interceptRaio1[1][3],
+        "ballyList": M_interceptRaio1[1][4],
+        "robotxList": M_interceptRaio1[1][1],
+        "robotyList": M_interceptRaio1[1][2]
+    }
+
+    data_interception3 = {
+        "timeList": M_interceptRaio2[1][0],
+        "ballxList": M_interceptRaio2[1][3],
+        "ballyList": M_interceptRaio2[1][4],
+        "robotxList": M_interceptRaio2[1][1],
+        "robotyList": M_interceptRaio2[1][2]
     }
 
     ballIntercept = {
@@ -71,4 +89,4 @@ def afterIntercept(ball, robot, raio, v):
     data_interception["robotVm"] = Vm(robotIntercept["xList"][-1], robotIntercept["xList"][0], ballIntercept["timeList"][-1], ballIntercept["timeList"][0])
     data_interception["robotAm"] = Am(robotIntercept["vxList"][-1], robotIntercept["vxList"][0], ballIntercept["timeList"][-1], ballIntercept["timeList"][0])
     data_interception["distTraveled"] = distanceTraveled(ballIntercept["timeList"], 0.4)
-    return [data_interception, ballIntercept, robotIntercept]
+    return [data_interception, ballIntercept, robotIntercept, data_interception2, data_interception3]

@@ -44,7 +44,7 @@ def distanceTraveled(timeList, a):
     return dist
 
 def Ax_Robot(timeList):
-    ax = []
+    ax = [0.1]
     
     for t in timeList:
         ax.append(0.4)

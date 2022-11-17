@@ -22,7 +22,7 @@ def interception(timeList, robotxList, robotyList, ballxList, ballyList, raio):
     
     for t in range(len(timeList)):
         dist = distance(robotxList[t], robotyList[t], ballxList[t], ballyList[t])
-        # print("Distance: %.3f" % dist)
+        print("Distance: %.3f" % dist)
         timeListIntercept.append(timeList[t])
         robotxListIntercept.append(robotxList[t])
         robotyListIntercept.append(robotyList[t])

@@ -1,5 +1,5 @@
 from data import *
-from interface import afterList as interception
+from aprofundamento import afterList as interception
 import matplotlib.pyplot as plt
 
 data = interception[0]
@@ -145,22 +145,3 @@ yList_ball = [data2["ballyList"][0], data2["ballyList"][-1]]
 xList_robot = [data2["robotxList"][0], data2["robotxList"][-1]]
 yList_robot = [data2["robotyList"][0], data2["robotyList"][-1]]
 trajetoria(xList_robot, yList_robot, xList_ball, yList_ball, "Trajetória da Bola e do Robô em xy com raio diminuido em 0.9m")
-
-# data2["timeList"]
-# data2["ballyList"]
-# data2["ballxList"]
-# data2["robotxList"]
-# data2["robotyList"]
-
-# ------------- Com Raio em 0.7m ------------
-data3 = interception[4]
-xList_ball = [data3["ballxList"][0], data3["ballxList"][-1]]
-yList_ball = [data3["ballyList"][0], data3["ballyList"][-1]]
-xList_robot = [data3["robotxList"][0], data3["robotxList"][-1]]
-yList_robot = [data3["robotyList"][0], data3["robotyList"][-1]]
-trajetoria(xList_robot, yList_robot, xList_ball, yList_ball, "Trajetória da Bola e do Robô em xy com raio diminuido em 0.7m")
-# data3["timeList"]
-# data3["ballyList"]
-# data3["ballxList"]
-# data3["robotxList"]
-# data3["robotyList"]
